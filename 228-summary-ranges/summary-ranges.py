@@ -1,18 +1,22 @@
 class Solution:
+    def convert_to_string(self,a,b):
+        if a==b:
+            return str(a)
+        return f"{a}->{b}"
+
     def summaryRanges(self, nums: List[int]) -> List[str]:
-        if not nums:
+        if len(nums)==0:
             return []
-    
-        ranges = []
-        start = end = nums[0]
-
-        for num in nums[1:]:
-            if num == end + 1:
-                end = num
+        res = []    
+        range=[]
+        c=nums[0]
+        for n in nums:
+            if n == c:
+                range.append(n)
+                c+=1
             else:
-                ranges.append(f"{start}->{end}" if start != end else str(start))
-                start = end = num
-
-        ranges.append(f"{start}->{end}" if start != end else str(start))
-
-        return ranges
+                res.append(self.convert_to_string(range[0],range[-1]))
+                range=[n]
+                c=n+1
+        res.append(self.convert_to_string(range[0],range[-1]))
+        return res
