@@ -9,5 +9,4 @@ class Solution:
                 res.append(count)
                 count = 0
         res.append(count)
-        res.sort(reverse=True)
-        return res[0]
+        return max(res)
