@@ -1,16 +1,21 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        result = 0
-        l = 0
-        r = 0 # initiate left and right index pointer for each jump
+        position = 0
+        steps = 0
+        while position < len(nums)-1:
+            steps += 1
+            position = self.nextposition(nums,position)
+        return steps
 
-        while r < len(nums) - 1:
-            far = 0
-            for i in range(l, r + 1):
-                far = max(far, i + nums[i])
-
-            l = l + 1
-            r = far
-            result += 1
-
-        return result
+    
+    def nextposition(self, nums: List[int], n: int) -> int:
+        nextposition = n
+        farestposition = n+nums[n]
+        if farestposition >= len(nums)-1:
+            return len(nums)-1
+        else:
+            for i in range(1,nums[n]+1):
+                if n+i+nums[n+i] > farestposition:
+                    nextposition = n+i
+                    farestposition = n+i+nums[n+i]
+            return nextposition
